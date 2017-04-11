@@ -4,7 +4,7 @@
 
   function xhrRequest(url, imageId, headers) {
     headers = headers || {};
-    
+
     var deferred = $.Deferred();
 
     // Make the request for the DICOM P10 SOP Instance
@@ -15,15 +15,13 @@
     Object.keys(headers).forEach(function (key) {
       xhr.setRequestHeader(key, headers[key]);
     });
-    
+
     // handle response data
     xhr.onreadystatechange = function () {
       // TODO: consider sending out progress messages here as we receive the pixel data
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-<<<<<<< HEAD:src/xhrRequest.js
           // request succeeded, create an image object and resolve the deferred
-
           // Parse the DICOM File
           var dicomPart10AsArrayBuffer = xhr.response;
           var byteArray = new Uint8Array(dicomPart10AsArrayBuffer);
@@ -33,9 +31,6 @@
           }catch(e){
             deferred.reject(e);
           }
-=======
-          deferred.resolve(xhr.response, xhr);
->>>>>>> chafey/master:src/imageLoader/xhrRequest.js
         }
         else {
           // request failed, reject the deferred

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/*! cornerstone-wado-image-loader - v0.13.3 - 2017-04-11 | (c) 2014 Chris Hafey | https://github.com/chafey/cornerstoneWADOImageLoader */
-=======
-/*! cornerstone-wado-image-loader - v0.14.3 - 2017-04-06 | (c) 2016 Chris Hafey | https://github.com/chafey/cornerstoneWADOImageLoader */
->>>>>>> chafey/master
+/*! cornerstone-wado-image-loader - v0.14.3 - 2017-04-11 | (c) 2016 Chris Hafey | https://github.com/chafey/cornerstoneWADOImageLoader */
 //
 // This is a cornerstone image loader for WADO-URI requests.
 //
@@ -693,40 +689,10 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
  */
 (function ($, cornerstone, cornerstoneWADOImageLoader) {
 
-<<<<<<< HEAD
-  function decodeJPEGLossless(dataSet, frame) {
-    var bitsAllocated = dataSet.uint16('x00280100');
-    var pixelRepresentation = dataSet.uint16('x00280103');
-    var encodedImageFrame = cornerstoneWADOImageLoader.getEncodedImageFrame(dataSet, frame);
-    var byteOutput = bitsAllocated <= 8 ? 1 : 2;
-    //console.time('jpeglossless');
-    var decoder = new jpeg.lossless.Decoder();
-    var decompressedData = decoder.decode(encodedImageFrame.buffer, encodedImageFrame.byteOffset, encodedImageFrame.length, byteOutput);
-    //console.timeEnd('jpeglossless');
-    if (pixelRepresentation === 0) {
-      if (byteOutput === 2) {
-        return new Uint16Array(decompressedData.buffer);
-      } else {
-        // untested!
-        return new Uint8Array(decompressedData.buffer);
-      }
-    } else {
-      return new Int16Array(decompressedData.buffer);
-    }
-  }
-  // module exports
-  cornerstoneWADOImageLoader.decodeJPEGLossless = decodeJPEGLossless;
-
-}(cornerstoneWADOImageLoader));
-"use strict";
-(function (cornerstoneWADOImageLoader) {
-
-=======
   "use strict";
 
   function getImageFrame(imageId) {
     var imagePixelModule = cornerstone.metaData.get('imagePixelModule', imageId);
->>>>>>> chafey/master
 
     return {
       samplesPerPixel : imagePixelModule.samplesPerPixel,
@@ -807,10 +773,6 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
   cornerstoneWADOImageLoader.isColorImage = isColorImage;
 
 }(cornerstoneWADOImageLoader));
-<<<<<<< HEAD
-/**
- */
-=======
 (function (cornerstoneWADOImageLoader) {
 
   "use strict";
@@ -819,7 +781,6 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
   cornerstoneWADOImageLoader.version = '0.13.3';
 
 }(cornerstoneWADOImageLoader));
->>>>>>> chafey/master
 (function (cornerstoneWADOImageLoader) {
 
   function checkToken(token, data, dataOffset) {
@@ -2181,7 +2142,7 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
 
   function xhrRequest(url, imageId, headers) {
     headers = headers || {};
-    
+
     var deferred = $.Deferred();
 
     // Make the request for the DICOM P10 SOP Instance
@@ -2192,15 +2153,13 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
     Object.keys(headers).forEach(function (key) {
       xhr.setRequestHeader(key, headers[key]);
     });
-    
+
     // handle response data
     xhr.onreadystatechange = function () {
       // TODO: consider sending out progress messages here as we receive the pixel data
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-<<<<<<< HEAD
           // request succeeded, create an image object and resolve the deferred
-
           // Parse the DICOM File
           var dicomPart10AsArrayBuffer = xhr.response;
           var byteArray = new Uint8Array(dicomPart10AsArrayBuffer);
@@ -2210,9 +2169,6 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
           }catch(e){
             deferred.reject(e);
           }
-=======
-          deferred.resolve(xhr.response, xhr);
->>>>>>> chafey/master
         }
         else {
           // request failed, reject the deferred
