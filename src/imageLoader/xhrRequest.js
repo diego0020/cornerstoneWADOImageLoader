@@ -21,20 +21,13 @@
       // TODO: consider sending out progress messages here as we receive the pixel data
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          // request succeeded, create an image object and resolve the deferred
-          // Parse the DICOM File
-          var dicomPart10AsArrayBuffer = xhr.response;
-          var byteArray = new Uint8Array(dicomPart10AsArrayBuffer);
-          try{
-            var dataSet = dicomParser.parseDicom(byteArray);
-            deferred.resolve(dataSet);
-          }catch(e){
-            deferred.reject(e);
+          if (xhr.status === 200) {
+            deferred.resolve(xhr.response, xhr);
           }
-        }
-        else {
-          // request failed, reject the deferred
-          deferred.reject(xhr);
+          else {
+            // request failed, reject the deferred
+            deferred.reject(xhr);
+          }
         }
       }
     };

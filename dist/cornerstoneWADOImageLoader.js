@@ -1,4 +1,4 @@
-/*! cornerstone-wado-image-loader - v0.14.3 - 2017-04-11 | (c) 2016 Chris Hafey | https://github.com/chafey/cornerstoneWADOImageLoader */
+/*! cornerstone-wado-image-loader - v0.14.3 - 2017-04-12 | (c) 2016 Chris Hafey | https://github.com/chafey/cornerstoneWADOImageLoader */
 //
 // This is a cornerstone image loader for WADO-URI requests.
 //
@@ -1271,7 +1271,6 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
     var loadDeferred = $.Deferred();
     promise.then(function(dicomPart10AsArrayBuffer/*, xhr*/) {
       var byteArray = new Uint8Array(dicomPart10AsArrayBuffer);
-
       // Reject the promise if parsing the dicom file fails
       var dataSet;
       try {
@@ -1326,6 +1325,7 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
   };
 
 }($, cornerstoneWADOImageLoader));
+
 /**
  */
 (function (cornerstoneWADOImageLoader) {
@@ -2159,20 +2159,13 @@ if(typeof cornerstoneWADOImageLoader === 'undefined'){
       // TODO: consider sending out progress messages here as we receive the pixel data
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          // request succeeded, create an image object and resolve the deferred
-          // Parse the DICOM File
-          var dicomPart10AsArrayBuffer = xhr.response;
-          var byteArray = new Uint8Array(dicomPart10AsArrayBuffer);
-          try{
-            var dataSet = dicomParser.parseDicom(byteArray);
-            deferred.resolve(dataSet);
-          }catch(e){
-            deferred.reject(e);
+          if (xhr.status === 200) {
+            deferred.resolve(xhr.response, xhr);
           }
-        }
-        else {
-          // request failed, reject the deferred
-          deferred.reject(xhr);
+          else {
+            // request failed, reject the deferred
+            deferred.reject(xhr);
+          }
         }
       }
     };
