@@ -1,4 +1,4 @@
-/*! cornerstone-wado-image-loader - 0.14.6 - 2017-06-08 | (c) 2016 Chris Hafey | https://github.com/chafey/cornerstoneWADOImageLoader */
+/*! cornerstone-wado-image-loader - 0.14.6 - 2017-07-13 | (c) 2016 Chris Hafey | https://github.com/chafey/cornerstoneWADOImageLoader */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -764,7 +764,7 @@ function decodeBigEndian(imageFrame, pixelData) {
     }
     // Do the byte swap
     for (var i = 0; i < imageFrame.pixelData.length; i++) {
-      imageFrame[i] = swap16(imageFrame.pixelData[i]);
+      imageFrame.pixelData[i] = swap16(imageFrame.pixelData[i]);
     }
   } else if (imageFrame.bitsAllocated === 8) {
     imageFrame.pixelData = pixelData;
